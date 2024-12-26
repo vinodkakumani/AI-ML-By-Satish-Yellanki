@@ -1,0 +1,22 @@
+Employee_ID,First Name,Last Name,Department,Trained,Age,"Experience
+(Years)",Position,Salary,Phone Number,Email
+101,John,Smith,Sales,Yes,28,3,Sales Rep,55000,555-1234,john.smith@example.com
+102,Sarah,Johnson,HR,No,35,10,HR Manager,75000,555-5678,sarah.johnson@example.com
+103,Robert,Brown,IT,Yes,41,15,IT Specialist,82000,555-8765,robert.brown@example.com
+104,Emily,Davis,Sales,Yes,30,5,Sales Rep,58000,555-2345,emily.davis@example.com
+105,Michael,Miller,IT,No,29,4,IT Analyst,60000,555-3456,michael.miller@example.com
+106,Jessica,Wilson,Sales,No,32,6,Sales Lead,61000,555-4567,jessica.wilson@example.com
+107,David,Moore,HR,Yes,40,13,HR Specialist,72000,555-6789,david.moore@example.com
+108,Ashley,Taylor,Sales,No,27,3,Sales Rep,54000,555-7890,ashley.taylor@example.com
+109,James,Anderson,IT,Yes,33,9,IT Manager,88000,555-8901,james.anderson@example.com
+110,Linda,Thomas,Sales,Yes,45,20,Sales Director,92000,555-9012,linda.thomas@example.com
+111,Mark,Jackson,Finance,No,50,25,Finance Lead,94000,555-1122,mark.jackson@example.com
+112,Susan,White,HR,Yes,29,7,HR Assistant,62000,555-2233,susan.white@example.com
+113,Andrew,Harris,IT,No,38,12,IT Technician,70000,555-3344,andrew.harris@example.com
+114,Kimberly,Martin,Sales,Yes,36,8,Sales Manager,85000,555-4455,kimberly.martin@example.com
+115,Matthew,Garcia,Marketing,No,43,18,Marketing Lead,73000,555-5566,matthew.garcia@example.com
+116,Laura,Clark,IT,Yes,39,16,IT Supervisor,86000,555-6677,laura.clark@example.com
+117,Daniel,Rodriguez,Finance,No,31,5,Finance Analyst,59000,555-7788,daniel.rodriguez@example.com
+118,Karen,Lewis,Sales,No,25,2,Sales Rep,53000,555-8899,karen.lewis@example.com
+119,Thomas,Lee,HR,Yes,42,14,HR Consultant,75000,555-9900,thomas.lee@example.com
+120,Lisa,Walker,IT,No,34,10,IT Specialist,72000,555-1011,lisa.walker@example.com

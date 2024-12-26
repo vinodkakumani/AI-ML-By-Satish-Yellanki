@@ -1,0 +1,80 @@
+# Different Derivative Rules
+
+# 1. Power Rule
+# For f(x) = x^n, f'(x) = n * x^(n-1)
+println("Power Rule: d/dx(x^n) = n * x^(n-1)")
+
+# 2. Constant Rule
+# For f(x) = c (where c is a constant), f'(x) = 0
+println("Constant Rule: d/dx(c) = 0")
+
+# 3. Sum/Difference Rule
+# For f(x) = g(x) ± h(x), f'(x) = g'(x) ± h'(x)
+println("Sum/Difference Rule: d/dx(g(x) ± h(x)) = g'(x) ± h'(x)")
+
+# 4. Product Rule
+# For f(x) = g(x) * h(x), f'(x) = g'(x) * h(x) + g(x) * h'(x)
+println("Product Rule: d/dx(g(x) * h(x)) = g'(x) * h(x) + g(x) * h'(x)")
+
+# 5. Quotient Rule
+# For f(x) = g(x) / h(x), f'(x) = (g'(x) * h(x) - g(x) * h'(x)) / (h(x))^2
+println("Quotient Rule: d/dx(g(x) / h(x)) = (g'(x) * h(x) - g(x) * h'(x)) / (h(x))^2")
+
+# 6. Chain Rule
+# For f(x) = g(h(x)), f'(x) = g'(h(x)) * h'(x)
+println("Chain Rule: d/dx(g(h(x))) = g'(h(x)) * h'(x)")
+
+# 7. Exponential Rule
+# For f(x) = e^x, f'(x) = e^x
+println("Exponential Rule: d/dx(e^x) = e^x")
+
+# 8. Logarithmic Rule
+# For f(x) = ln(x), f'(x) = 1/x
+println("Logarithmic Rule: d/dx(ln(x)) = 1/x")
+
+# 9. Trigonometric Rules
+println("Trigonometric Rules:")
+println("d/dx(sin(x)) = cos(x)")
+println("d/dx(cos(x)) = -sin(x)")
+println("d/dx(tan(x)) = sec^2(x)")
+
+# Examples
+
+# Function: f(x) = ax^3 + (bx+c)^2
+# Calculating f'(x)
+
+# Step 1: Differentiate ax^3
+# d/dx(ax^3) = 3ax^2
+
+# Step 2: Differentiate (bx+c)^2
+# d/dx((bx+c)^2) = 2(bx+c) * d/dx(bx+c) = 2(bx+c) * b = 2b(bx+c)
+
+# Combining the results:
+# f'(x) = 3ax^2 + 2b(bx+c)
+
+# Expanding the second term:
+# f'(x) = 3ax^2 + 2b^2x + 2bc
+
+print("The derivative f'(x) is:")
+print("f'(x) = 3ax^2 + 2b^2x + 2bc")
+
+# f(x) = (3x^2 + 2)^4 * sin(x^3 - 5x) * e^(2x+1)
+
+# Step 1: Differentiate (3x^2 + 2)^4
+# Let u = 3x^2 + 2
+# d/dx(u^4) = 4u^3 * du/dx
+# du/dx = 6x
+# So, d/dx((3x^2 + 2)^4) = 4(3x^2 + 2)^3 * 6x = 24x(3x^2 + 2)^3
+
+# Step 2: Differentiate sin(x^3 - 5x)
+# Let v = x^3 - 5x
+# d/dx(sin(v)) = cos(v) * dv/dx
+# dv/dx = 3x^2 - 5
+# So, d/dx(sin(x^3 - 5x)) = cos(x^3 - 5x) * (3x^2 - 5)
+
+# Step 3: Differentiate e^(2x+1)
+# d/dx(e^(2x+1)) = e^(2x+1) * d/dx(2x+1) = 2e^(2x+1)
+
+# Step 4: Combine the results using the product rule
+# f'(x) = [24x(3x^2 + 2)^3] * [cos(x^3 - 5x) * (3x^2 - 5)] * [2e^(2x+1)]
+

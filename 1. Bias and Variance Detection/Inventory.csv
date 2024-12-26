@@ -1,0 +1,11 @@
+Month,Actual Inventory,Predicted Inventory,Bias Value
+January,120,150,30
+February,130,145,15
+March,110,140,30
+April,150,155,5
+May,140,130,-10
+June,160,150,-10
+July,170,160,-10
+August,165,155,-10
+September,180,170,-10
+October,175,165,-10

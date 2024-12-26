@@ -1,0 +1,162 @@
+// Example using DTL (Data Transformation Language) with US Core Compliance
+// for HL7 v2.5.1 to v2.7 transformation
+
+transform HL7_251_to_27_USCore {
+    source: "hl7v2.5.1"
+    target: "hl7v2.7"
+    
+    // MSH Segment transformation with US Core requirements
+    segment MSH {
+        field[12] = "2.7"
+        field[21] = "USA" // Country Code
+        // Add US Realm specific message profile identifier
+        field[15] = "US CORE V1.0"
+        field[16] = "US" // Principal Language
+        copyFields(1-11, 13-14, 17-20, 22-*)
+    }
+    
+    // PID Segment transformation with extended US Core demographics
+    segment PID {
+        // Enhanced patient identifier with US NPI and SSN
+        field[3] {
+            component[1] = source.PID[3].1
+            component[4].subcomponent[1] = "ISO"
+            component[5] = "NPI"  // National Provider Identifier
+            // Add SSN as additional identifier
+            addComponent {
+                value = source.PID[19]  // SSN from original message
+                qualifier = "SS"
+            }
+        }
+        
+        // Enhanced name structure
+        field[5] {
+            component[1] = source.PID[5].1  // Last Name
+            component[2] = source.PID[5].2  // First Name
+            component[3] = source.PID[5].3  // Middle Name
+            component[4] = source.PID[5].4  // Suffix
+            component[7] = "L"  // Name Type Code
+        }
+        
+        // Enhanced address structure per US Core
+        field[11] {
+            component[1] = source.PID[11].1  // Street
+            component[2] = source.PID[11].2  // Additional Location
+            component[3] = source.PID[11].3  // City
+            component[4] = source.PID[11].4  // State
+            component[5] = source.PID[11].5  // Zip
+            component[6] = "USA"  // Country
+            component[7] = "H"    // Address Type
+            component[9] = source.PID[11].9  // County
+        }
+        
+        // Race and Ethnicity coding per US Core
+        field[10] {
+            component[1] = mapRaceCode(source.PID[10].1)
+            component[2] = "HL70005"  // Race coding system
+        }
+        
+        // Language preference
+        field[15] {
+            component[1] = "eng"  // Default to English
+            component[2] = "Internet Society Language Code"
+            component[3] = "HL70296"
+        }
+    }
+    
+    // PV1 Segment with US Core encounter details
+    segment PV1 {
+        // Enhanced admission type
+        field[4] {
+            map {
+                "E" -> "EMER"     // Emergency
+                "R" -> "ROUTINE"  // Routine
+                "U" -> "URGENT"   // Urgent
+                "P" -> "PREADT"   // Pre-admitted
+            }
+        }
+        
+        // Enhanced provider details with NPI
+        field[7] {
+            component[1] = source.PV1[7].1  // Provider ID
+            component[13] = "NPI"           // ID Type = NPI
+            component[9] = "SNOMED-CT"      // Name Type Code
+        }
+        
+        // Enhanced facility details
+        field[39] {
+            component[1] = source.PV1[39].1  // Facility ID
+            component[7] = "US-NPI"          // Facility ID Type
+        }
+    }
+    
+    // OBX Segment with LOINC codes
+    segment OBX {
+        field[3] {
+            component[1] = source.OBX[3].1
+            component[3] = "LN"  // LOINC coding system
+            component[4] = "2.7"
+        }
+        
+        // Add US Core specific units
+        field[6] {
+            component[1] = mapToUCUM(source.OBX[6].1)  // Convert to UCUM units
+        }
+    }
+}
+
+// Helper functions for US Core mappings
+function mapRaceCode(code) {
+    map {
+        "1002-5" -> "AI"    // American Indian
+        "2028-9" -> "AS"    // Asian
+        "2054-5" -> "BP"    // Black/African American
+        "2076-8" -> "NH"    // Native Hawaiian
+        "2106-3" -> "WH"    // White
+        default -> "OTH"    // Other
+    }
+}
+
+function mapToUCUM(unit) {
+    map {
+        "mg/dL" -> "mg/dL"
+        "kg" -> "kg"
+        "cm" -> "cm"
+        "F" -> "[degF]"
+        "C" -> "Cel"
+        default -> unit
+    }
+}
+
+// Validation rules for US Core compliance
+validate {
+    assert MSH[12] == "2.7"
+    assert MSH[21] == "USA"
+    assert PID[3].4.1 == "ISO"
+    assert PID[3].5 == "NPI"
+    assert PID[11].6 == "USA"
+    assert OBX[3].3 == "LN"
+    
+    // Check required US Core fields
+    required {
+        PID[5]    // Patient Name
+        PID[7]    // Date of Birth
+        PID[8]    // Gender
+        PID[11]   // Address
+        PV1[7]    // Attending Provider
+    }
+}
+
+// Camel route with error handling for US Core validation
+route {
+    from("direct:hl7Transform")
+    .errorHandler(deadLetterChannel("direct:validationError"))
+    .transform(dtl("HL7_251_to_27_USCore.dtl"))
+    .to("direct:transformedHL7")
+}
+
+
+
+
+
+
