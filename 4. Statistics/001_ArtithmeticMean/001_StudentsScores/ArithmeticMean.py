@@ -117,6 +117,8 @@ class StudentScoresArithmentiMeanCalculator :
             plt.xticks(rotation = 45, ha = "right")
             plt.tight_layout()
             plt.grid(True)
+            plt.axhline(y=mean_score, color='red', linestyle='--', label=f'Arithmetic Mean: {mean_score:.2f}')
+            plt.legend()
             
             plt.show()  # Display the plot
 
