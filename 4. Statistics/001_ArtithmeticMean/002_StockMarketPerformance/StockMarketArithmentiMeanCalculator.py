@@ -129,16 +129,19 @@ class StockMarketArithmentiMeanCalculator :
             plt.show()  # Display the plot
 
             """Plot to show class Percentage Change Vs Volume"""
-            plt.figure(figsize=(12, 6))
-            plt.scatter(self.data["Class Participation (%)"], self.data["Score"], color="red", alpha = 0.7)
-            plt.title("Class Participarion Vs Scores")
-            plt.xlabel("Class Participarion %")
-            plt.ylabel("Score")
-            plt.xticks(rotation = 45, ha = "right")
+            if 'Percentage Change (%)' not in self.data.columns :
+                self.data['Percentage Change (%)'] = ((self.data['Closing Price'] - self.data['Opening Price']) / self.data['Opening Price']) * 100
+            plt.figure(figsize=(14, 8))
+            scatter = plt.scatter(self.data['Percentage Change (%)'], self.data['Volume'], alpha=0.7, c=self.data['Closing Price'], cmap='viridis', edgecolor= 'black')
+            plt.colorbar(scatter, label= 'Closing Price')
+            plt.title('Percentage Change vs Volume', fontsize=18, fontweight='bold')
+            plt.xlabel ('Percentage Change (%)', fontsize=14, labelpad = 10)
+            plt.ylabel ('Volume', fontsize=14, labelpad=10)
+            plt.xticks(fontsize=10)
+            plt.yticks(fontsize=10)
+            plt.grid(True, linestyle='--', alpha=0.7)
             plt.tight_layout()
-            plt.grid(True)
-            plt.axhline(y=mean_score, color='red', linestyle='--', label=f'Arithmetic Mean: {mean_score:.2f}')
-            plt.legend()
+            plt.show()  # Display the plot
             
             plt.show()  # Display the plot
 
